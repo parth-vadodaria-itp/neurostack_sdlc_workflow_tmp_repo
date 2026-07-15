@@ -7,7 +7,6 @@ def welcome():
     """Welcome endpoint that returns a greeting message.
     
     Returns:
-        str: Welcome message
-        int: HTTP status code 200
+        str: Welcome message with HTTP 200 status
     """
     return 'Hello Neurostack User', 200

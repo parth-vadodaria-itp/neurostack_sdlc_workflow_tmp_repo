@@ -3,82 +3,81 @@
 ## Overview
 A minimal Flask web application that displays a welcome message when accessing the home page.
 
-## Story Details
-- **Story ID:** KAN-124
-- **Summary:** Develop a Simple Welcome Web Application
+## Story: KAN-124
+**Summary:** Develop a Simple Welcome Web Application
 
-## Features
-- Single endpoint (`GET /`) that returns "Hello Neurostack User"
-- Runs on Flask development server
-- Returns HTTP 200 OK response
+**Requirements:**
+- Single HTTP endpoint: `GET /`
+- Returns message: "Hello Neurostack User"
+- Runs on Flask development server at `http://localhost:5000/`
 
-## Requirements
-- Python 3.11+
-- pip (Python package manager)
+## Technology Stack
+- **Language:** Python 3.11
+- **Framework:** Flask 3.x
+- **Database:** SQLite (configured but not used in this minimal app)
+- **Package Manager:** pip
 
 ## Setup Instructions
 
-### 1. Clone the repository
-```bash
-git clone https://github.com/parth-vadodaria-itp/neurostack_sdlc_workflow_tmp_repo.git
-cd neurostack_sdlc_workflow_tmp_repo
-```
+### Prerequisites
+- Python 3.11 or higher
+- pip package manager
 
-### 2. Create a virtual environment
-```bash
-python -m venv venv
-```
+### Installation
 
-### 3. Activate the virtual environment
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/parth-vadodaria-itp/neurostack_sdlc_workflow_tmp_repo.git
+   cd neurostack_sdlc_workflow_tmp_repo
+   ```
 
-**On Windows:**
-```bash
-venv\Scripts\activate
-```
+2. **Create a virtual environment:**
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
 
-**On macOS/Linux:**
-```bash
-source venv/bin/activate
-```
+3. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-### 4. Install dependencies
-```bash
-pip install -r requirements.txt
-```
+4. **Set up environment variables:**
+   ```bash
+   cp .env.example .env
+   # Edit .env if needed (defaults are fine for local development)
+   ```
 
-### 5. Configure environment variables
-Copy the example environment file:
-```bash
-cp .env.example .env
-```
+## Running the Application
 
-The default configuration will work for local development.
-
-### 6. Run the application
-```bash
-python app.py
-```
-
-Or using Flask CLI:
+### Development Mode
 ```bash
 flask run
 ```
 
-## Usage
+Or using the Flask development server directly:
+```bash
+python -m flask run
+```
 
-Once the application is running, open your browser and navigate to:
+The application will start on `http://localhost:5000/`
+
+### Production Mode
+```bash
+gunicorn --bind 0.0.0.0:5000 "app:create_app()"
 ```
-http://localhost:5000/
-```
+
+## Testing the Application
+
+### Using a Web Browser
+Navigate to: `http://localhost:5000/`
 
 You should see:
 ```
 Hello Neurostack User
 ```
 
-## Testing
-
-You can also test the endpoint using curl:
+### Using curl
 ```bash
 curl http://localhost:5000/
 ```
@@ -88,49 +87,45 @@ Expected response:
 Hello Neurostack User
 ```
 
-HTTP Status: `200 OK`
+Status code: `200 OK`
 
-## Docker Support (Optional)
+## Acceptance Criteria Verification
 
-Build the Docker image:
-```bash
-docker build -t welcome-app .
-```
-
-Run the container:
-```bash
-docker run -p 5000:5000 welcome-app
-```
+- ✅ The application starts successfully without errors
+- ✅ Navigating to `http://localhost:5000/` displays "Hello Neurostack User"
+- ✅ The endpoint returns an HTTP 200 OK response
+- ✅ No additional pages or APIs are implemented
 
 ## Project Structure
 ```
 .
-├── app.py                  # Flask application factory
-├── config.py               # Configuration classes
-├── requirements.txt        # Python dependencies
-├── .env                    # Environment variables (not in git)
-├── .env.example            # Example environment template
-├── .gitignore              # Git ignore patterns
-├── Dockerfile              # Docker container definition
-├── .dockerignore           # Docker ignore patterns
-├── README.md               # This file
+├── requirements.txt       # Python dependencies
+├── .env                   # Environment variables (not in git)
+├── .env.example          # Environment template
+├── .gitignore            # Git ignore rules
+├── README.md             # This file
+├── config.py             # Configuration classes
+├── app.py                # Application factory
 └── routes/
-    ├── __init__.py         # Routes package initializer
-    └── welcome_routes.py   # Welcome endpoint blueprint
+    └── welcome_routes.py # Welcome endpoint
 ```
 
-## Acceptance Criteria
+## Environment Variables
 
-✅ The application starts successfully without errors  
-✅ Navigating to `http://localhost:5000/` displays "Hello Neurostack User"  
-✅ The endpoint returns an HTTP 200 OK response  
-✅ No additional pages or APIs are required  
+| Variable | Description | Default |
+|----------|-------------|----------|
+| `FLASK_DEBUG` | Enable debug mode | `1` |
+| `FLASK_APP` | Flask application entry point | `app.py` |
+| `SECRET_KEY` | Secret key for sessions | `dev-secret-key-change-in-production` |
+| `DATABASE_URL` | Database connection string | `sqlite:///dev.db` |
+| `PORT` | Application port | `5000` |
 
-## Technology Stack
-- **Language:** Python 3.11
-- **Framework:** Flask 3.x
-- **Package Manager:** pip
-- **Server:** Gunicorn (production) / Flask dev server (development)
+## Development Notes
+
+- This is a minimal implementation with no database operations
+- The app uses the Flask app factory pattern for better testability
+- Configuration is environment-based (Development/Production)
+- No authentication or authorization is implemented
 
 ## License
-This project is part of the Neurostack SDLC workflow.
+Internal project for Neurostack SDLC workflow

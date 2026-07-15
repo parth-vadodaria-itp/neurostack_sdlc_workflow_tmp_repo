@@ -1,6 +1,6 @@
 import os
 from flask import Flask
-from config import config
+from config import config_by_name
 
 def create_app(env=None):
     """Application factory pattern."""
@@ -8,7 +8,7 @@ def create_app(env=None):
         env = os.getenv('FLASK_ENV', 'default')
     
     app = Flask(__name__)
-    app.config.from_object(config[env])
+    app.config.from_object(config_by_name[env])
     
     # Register blueprints
     from routes.welcome_routes import welcome_bp
@@ -17,7 +17,7 @@ def create_app(env=None):
     # Error handlers
     @app.errorhandler(404)
     def not_found(error):
-        return {'error': 'Not found'}, 404
+        return {'error': 'Resource not found'}, 404
     
     @app.errorhandler(500)
     def internal_error(error):
@@ -28,4 +28,4 @@ def create_app(env=None):
 if __name__ == '__main__':
     app = create_app()
     port = int(os.getenv('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
+    app.run(host='0.0.0.0', port=port)

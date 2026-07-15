@@ -35,7 +35,6 @@ instance/
 
 # Environment variables
 .env
-.env.local
 
 # Database
 *.db
@@ -48,10 +47,12 @@ instance/
 *.swp
 *.swo
 *~
-
-# OS
 .DS_Store
-Thumbs.db
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
 
 # Logs
 *.log
