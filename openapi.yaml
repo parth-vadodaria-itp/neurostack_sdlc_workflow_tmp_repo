@@ -3,8 +3,6 @@ info:
   title: Simple Welcome Web Application (KAN-124)
   description: A minimal Flask web application that displays a welcome message when accessing the home page.
   version: 1.0.0
-  contact:
-    name: Neurostack SDLC Workflow
 servers:
   - url: http://localhost:5000
     description: Local development server
@@ -14,11 +12,9 @@ paths:
       summary: Welcome endpoint
       description: Returns a welcome message to the user
       operationId: getWelcome
-      tags:
-        - Welcome
       responses:
         '200':
-          description: Successful response with welcome message
+          description: Welcome message
           content:
             text/plain:
               schema:
@@ -34,5 +30,3 @@ paths:
                   error:
                     type: string
                     example: Internal server error
-components:
-  schemas: {}

@@ -11,19 +11,18 @@ RUN groupadd -r appgroup && useradd -r -g appgroup appuser
 
 WORKDIR /app
 
-COPY requirements.txt .
+COPY --chown=appuser:appgroup requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+COPY --chown=appuser:appgroup . .
 
-COPY entrypoint.sh /entrypoint.sh
+COPY --chown=appuser:appgroup entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 ENV FLASK_APP=app.py
 ENV FLASK_DEBUG=0
 
-RUN chown -R appuser:appgroup /app
 USER appuser
 
 EXPOSE 5000
